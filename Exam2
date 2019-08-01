@@ -22,12 +22,13 @@ void init() {
 		//init
 		memset(touched, 0, 6);
 		//switch to outer Hex
-		if(outer > outer_max-1) {
+		if(outer > outer_max) {
 			inner = 1;
 			outer = 1;
 			inner_start += inner_max;
 			inner_max = outer_max;
 			outer_max = inner_max+6;
+			if(outer_max == 7) outer_max--;
 			edge_len++;
 		}
 		//To the previous one
