@@ -16,12 +16,12 @@ bool cmp(const string& a, const string& b) {
 string lower(string& str) {
 	int len = str.length();
 	for(int i = 0;i < len;++i) 
-		if(str[i] >= 'A') 
-			str[i] -= 'A'-'a';
+		if(str[i] >= 'A' && str[i] <= 'Z') 
+			str[i] += 'a' - 'A';
 	return str;
 }
 
-void insert(string str) {
+void insert(string &str) {
 	map<string, int>::iterator it;
 	it = res.find(str);
 	if(it != res.end())
@@ -32,14 +32,15 @@ void insert(string str) {
 
 int main() {
 	int N;
-	string temp;
 	cin >> N;
+	string temp;
 	for(int i = 0;i < N;++i) {
 		cin >> temp;
 		lower(temp);
 		insert(temp);
 	}
 	for(map<string, int>::iterator it = res.begin();it != res.end();it++) {
-		cout << it->first << it->second;
+		cout << it->first << " " << it->second << endl;
 	}
+	return 0;
 }
