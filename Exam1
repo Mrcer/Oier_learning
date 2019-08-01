@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+const int MAX = 1001;
+const int TEAM_MAX = 1000000;
+int width, height;
+int map[MAX][MAX];
+pair<bool , bool> team[TEAM_MAX]; // Alice, del_row
+int head, tail;
+
+bool row() {
+	int sum = 0;
+	for(int i = 1;i <= width;++i)
+		sum += map[height][i];
+	if(sum % 2 == 0)
+		return true;
+	else
+		return false;
+}
+
+bool col() {
+	int sum = 0;
+	for(int i = 1;i <= height;++i)
+		sum += map[i][width];
+	if(sum % 2 == 0)
+		return true;
+	else
+		return false;
+}
+
+bool BFS() {
+		
+}
