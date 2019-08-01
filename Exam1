@@ -2,25 +2,38 @@
 using namespace std;
 const int MAX = 1001;
 const int TEAM_MAX = 1000000;
-int width, height;
 int map[MAX][MAX];
-pair<bool , bool> team[TEAM_MAX]; // Alice, del_row
 int head, tail;
 
-bool row() {
+struct step {
+	int h;
+	int w;
+	int t;
+}team[TEAM_MAX];
+
+inline void push(int h, int w, int t) {
+	head = (head+1)%TEAM_MAX;
+	team[head].h = h;
+	team[head].w = w;
+	team[head].t = t;
+}
+
+bool row(int h, int w) {
+	if(h < 1 || w < 1) return false;
 	int sum = 0;
-	for(int i = 1;i <= width;++i)
-		sum += map[height][i];
+	for(int i = 1;i <= w;++i)
+		sum += map[h][i];
 	if(sum % 2 == 0)
 		return true;
 	else
 		return false;
 }
 
-bool col() {
+bool col(int h, int w) {
+	if(h < 1 || w < 1) return false;
 	int sum = 0;
-	for(int i = 1;i <= height;++i)
-		sum += map[i][width];
+	for(int i = 1;i <= h;++i)
+		sum += map[i][w];
 	if(sum % 2 == 0)
 		return true;
 	else
@@ -28,5 +41,37 @@ bool col() {
 }
 
 bool BFS() {
-		
+	tail++;
+	int h = team[tail].h;
+	int w = team[tail].w;
+	int t = team[tail].t; 
+	if(row(h-1, w)) push(h-1, w, t+1);
+	if(col(h, w-1)) push(h, w-1, t+1);
+}
+
+void read() {
+	int N;
+	cin >> N;
+	for(int i = 1;i <= N;++i)
+		for(int j = 1;j <= N;++j)
+			cin >> map[i][j];
+	push(N, N, 1);
+}
+
+void solve() {
+	while(tail != head)
+		BFS();
+	if(team[tail].t % 2 == 0)
+		cout << 'W';
+	else
+		cout << 'L';
+}
+
+int main() {
+	int T;
+	cin >> T;
+	for(int i = 0;i < T;++i) {
+		read();
+		solve();
+	}
 }
