@@ -1,10 +1,13 @@
-
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <map>
 using namespace std;
 const int MAX = 100001;
+const int MAX_RES = 5000;
 string name[MAX];
+map<string, int> res;
+int num_res;
 
 bool cmp(const string& a, const string& b) {
 	return a < b;
@@ -12,20 +15,31 @@ bool cmp(const string& a, const string& b) {
 
 string lower(string& str) {
 	int len = str.length();
-	for(int i = 0;i < str.len;++i) 
+	for(int i = 0;i < len;++i) 
 		if(str[i] >= 'A') 
 			str[i] -= 'A'-'a';
 	return str;
 }
 
+void insert(string str) {
+	map<string, int>::iterator it;
+	it = res.find(str);
+	if(it != res.end())
+		it->second++;
+	else
+		res.insert(pair<string, int>(str, 1));
+}
+
 int main() {
 	int N;
+	string temp;
 	cin >> N;
 	for(int i = 0;i < N;++i) {
-		cin >> name[i];
-	}	
-	sort(name, name+N, cmp);
-	for(int i = 0;i < N;++i) {
-		int len
+		cin >> temp;
+		lower(temp);
+		insert(temp);
+	}
+	for(map<string, int>::iterator it = res.begin();it != res.end();it++) {
+		cout << it->first << it->second;
 	}
 }
