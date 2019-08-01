@@ -2,56 +2,38 @@
 #include <cstring>
 using namespace std;
 const int MAX = 1001;
-bool map[MAX][MAX];
-bool f[MAX][MAX];
+bool f[MAX], a[MAX];
 int N;
-void read() {
-	int t;
-	cin >> N;
-	for(int i = 1;i <= N;++i) {
-		for(int j = 1;j <= N;++j) {
-			cin >> t;
-			map[i][j] = t%2;	
-		}
-	}
-	for(int i = 1;i <= N;++i) {
-		memset(f[i]+1, 1, sizeof(bool)*N);
-	}
-}
-
-inline bool row(int &r, int &c) {
-	bool sum = 0;
-	for(int i = 1;i <= c;++i)
-		sum ^= map[r][i];
-	return !sum;
-}
-
-inline bool col(int &r, int &c) {
-	bool sum = 0;
-	for(int i = 1;i <= r;++i)
-		sum ^= map[i][c];
-	return !sum;
-}
 
 void solve() {
+	cin >> N;
+	bool pre;
+	bool up;
+	int temp;
 	for(int i = 1;i <= N;++i) {
+		pre = false;
 		for(int j = 1;j <= N;++j) {
-			if((f[i-1][j] || i==1) && row(i, j)) f[i][j] = false;
-			if((f[i][j-1] || j==1) && col(i, j)) f[i][j] = false;
+			cin >> temp;
+			up = f[j];
+			f[j] = false;
+			temp %= 2;
+			pre ^= temp;
+			a[j] ^= temp;
+			if((!up || i==1) && !pre) f[j]=true;
+			if(!f[j-1] && !a[j]) f[j]=true; 
 		}
 	}
-	if(!f[N][N])
+	if(f[N])
 		cout << 'W' << endl;
 	else
 		cout << 'L' << endl;
+	memset(f+1, 0, N);
+	memset(a+1, 0, N);
 }
 
 int main() {
-	ios::sync_with_stdio(false);
 	int T;
 	cin >> T;
-	for(int i = 0;i < T;++i) {
-		read();
+	for(int i = 0;i < T;++i)
 		solve();
-	}
 }
