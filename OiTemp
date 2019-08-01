@@ -1,1 +1,31 @@
 
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+const int MAX = 100001;
+string name[MAX];
+
+bool cmp(const string& a, const string& b) {
+	return a < b;
+}
+
+string lower(string& str) {
+	int len = str.length();
+	for(int i = 0;i < str.len;++i) 
+		if(str[i] >= 'A') 
+			str[i] -= 'A'-'a';
+	return str;
+}
+
+int main() {
+	int N;
+	cin >> N;
+	for(int i = 0;i < N;++i) {
+		cin >> name[i];
+	}	
+	sort(name, name+N, cmp);
+	for(int i = 0;i < N;++i) {
+		int len
+	}
+}
