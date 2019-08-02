@@ -8,7 +8,7 @@ bool touched[6];
 int get_num() {
 	int res = 0;
 	for(int i = 1;i <= 5;++i)
-		if(!touched[i] && (!res || cnt[i]<cnt[res]))
+		if(!touched[i] && (res==0 || cnt[i]<cnt[res]))
 			res=i;
 	cnt[res]++;
 	return res;
@@ -34,14 +34,14 @@ void init() {
 		//To the previous one
 		touched[a[i-1]] = true;
 		//On the Vector or the Edge
-		if(outer % edge_len == 0) {
+		if(outer % edge_len == 0 || outer==1) {
 			//To the inner Vector
 			touched[a[inner_start+inner]] = true;
 		} else {
 			//To the inner ones
 			touched[a[inner_start+inner]] = true;
-			touched[a[inner_start+(inner+1)%inner_max]] = true;
-			if(outer!=1) inner++;
+			touched[a[inner_start+inner+1]] = true;
+			inner++;
 		}
 		a[i] = get_num();
 		outer++;
