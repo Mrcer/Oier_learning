@@ -19,10 +19,7 @@ void read() {
 
 void DFS(int k, int sour, int bitter) {
 	if(sour > MAX_INT || bitter > MAX_INT) return;
-	if(k > 0) {
-		int res = abs(sour-bitter);
-		if(res < minn) minn = res;
-	}
+	if(k > 0) minn = min(abs(sour-bitter), minn);
 	for(int i = 0;i < N;++i) {
 		if(vis[i]) continue;
 		vis[i] = true;
