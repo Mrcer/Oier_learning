@@ -20,13 +20,13 @@ void read() {
 void dp() {
 	for(int len = N-1;len > 0;--len)
 		for(int i = 0;i < N;++i)
-			f[i][trans(i+len)] = max(-f[i-1][trans(i+len)] + a[i], -f[i][trans(i+len+1)] + a[trans(i+len)]);
+			f[i][trans(i+len)] = max(-f[trans(i-1)][trans(i+len)] + a[i], -f[i][trans(i+len+1)] + a[trans(i+len)]);
 }
 
 int main() {
 	read();
 	dp();
 	for(int i = 0;i < N;++i)
-		ans = max(f[trans(i-1)][trans(i+1)], ans);
+		if(-f[trans(i-1)][trans(i+1)]+a[i]>0) ans++;
 	cout << ans << endl;
 }
