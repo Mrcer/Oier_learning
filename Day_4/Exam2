@@ -1,0 +1,51 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+const int MAX = 100001;
+int his_atk[MAX], his_def[MAX], my_card[MAX];
+int ans, atk_len, def_len, myc_len;
+bool vis[MAX];
+
+bool cmp(const int &a, const int &b) {
+	return a > b;
+}
+
+void read() {
+	int n, m, power;
+	char type[3];
+	cin >> n >> m;
+	for(int i = 0;i < n;++i) { 
+		cin >> type >> power;
+		if(type == "ATK")
+			his_atk[++atk_len] = power;
+		else
+			his_def[++def_len] = power;
+	}
+	for(int i = 0;i < m;++i) {
+		cin >> power;
+		my_card[++myc_len] = power;
+	}
+	sort(his_atk, his_atk+atk_len, cmp);
+	sort(his_def, his_def+def_len, cmp);
+	sort(my_card, my_card+myc_len, cmp);
+}
+
+void solve1() {
+	
+}
+
+void solve2() {
+	
+}
+
+void solve3() {
+	
+}
+
+int main() {
+	read();
+	solve1();
+	if(his_atk.empty()) solve2();
+	if(his_def.empty()) solve3();
+	cout << ans << endl;
+}
