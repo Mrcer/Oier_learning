@@ -37,6 +37,7 @@ void init() {
 		if(outer % edge_len == 0 || outer==1) {
 			//To the inner Vector
 			touched[a[inner_start+inner]] = true;
+			if(outer == outer_max) touched[a[inner_start+inner_max+1]] = true;
 		} else {
 			//To the inner ones
 			touched[a[inner_start+inner]] = true;
