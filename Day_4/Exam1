@@ -1,33 +1,29 @@
-#include <cstring>
 #include <iostream>
 using namespace std;
-const int MAX = 1000001;
-int a[MAX], t[MAX], N;
-
-void swap_node(int first, int last) {
-	int tt = a[first];
-	memcpy(t+first, a+first+1, sizeof(int)*(last-first));
-	memcpy(a+first, t+first, sizeof(int)*(last-first));
-	a[last] = tt;
-}
-
-void f(int k) {
-	int i;
-	for(i = 0;i < N/k;++i) {
-		swap_node(i*k+1, (i+1)*k);
-	}
-	//The last group if exist
-	if(N%k!=0 && N%k!=1) {
-		swap_node(i*k+1, N);
-	}
-} 
+const int MAX = 1000010;
+int a[2*MAX];
 
 int main() {
+	int N;
 	cin >> N;
 	for(int i = 1;i <= N;++i)
 		a[i] = i;
-	for(int i = 2;i <= N;++i)
-		f(i);
-	for(int i = 1;i <= N;++i)
-		cout << a[i] << ' ';	
+	int start=0, left, right;
+	for(int k = 2;k <= N;++k,++start) {
+		//The last group
+		if(N%k!=0) {
+			left = N/k*k+1;
+			right = N+1;
+			swap(a[start+left], a[start+right]);
+		}
+		//And the previous groups
+		for(int i = N/k;i >= 1;--i) {
+			left = (i-1)*k+1;
+			right = i*k+1;
+			swap(a[start+left], a[start+right]);
+		}
+	}
+	for(int i = start+1;i <= start+N;++i)
+		cout << a[i] << ' ';
+	return 0;
 }
